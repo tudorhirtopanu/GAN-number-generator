@@ -22,10 +22,14 @@ class Generator(nn.Module):
         """
         super().__init__()
         self.generator = nn.Sequential(
-            nn.Linear(z_dim, 256),
+            nn.Linear(z_dim, 256),  # First hidden layer
             nn.LeakyReLU(0.1),
-            nn.Linear(256, img_dim),
-            nn.Tanh(),
+            nn.Linear(256, 512),  # Second hidden layer
+            nn.LeakyReLU(0.1),
+            nn.Linear(512, 1024),  # Third hidden layer
+            nn.LeakyReLU(0.1),
+            nn.Linear(1024, img_dim),  # Output layer
+            nn.Tanh()
         )
 
     def forward(self, x):
